@@ -1,0 +1,24 @@
+{
+  "name": "node-micro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/idoco/node-micro.git"
+  },
+  "author": "idoco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/idoco/node-micro/issues"
+  },
+  "homepage": "https://github.com/idoco/node-micro#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-loadmill": "0.0.6",
+    "geoip-lite": "^1.2.1"
+  }
+}

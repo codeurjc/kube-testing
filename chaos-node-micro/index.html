@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IP Location</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+    <style type="text/css">
+        body {
+            background-color: #f0f0f2;
+            margin: 10px;
+            padding: 0;
+            text-rendering: optimizeLegibility;
+            font-size: 1rem;
+            font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            text-align: left;
+            color: #4a4a4a;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        tr:first-child {
+            border-top: none;
+        }
+
+        tr {
+            border-top: 1px solid #ddd;
+        }
+
+        td, th {
+            line-height: 1.5;
+            padding: 10px 5px;
+        }
+
+        .main {
+            max-width: 600px;
+            margin: 2em auto;
+            padding: 20px 40px;
+            background-color: #fff;
+            border-radius: 1em;
+        }
+
+        #map {
+            height: 30vh;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="main">
+    <h1>IP Location Demo</h1>
+
+    <p>
+        <div id="map"></div>
+    </p>
+
+    <table>
+        <tbody>
+        <tr>
+            <td>Your IP</td>
+            <td id="ip">111</td>
+        </tr>
+
+        <tr>
+            <td>Country</td>
+            <td id="country">222</td>
+        </tr>
+
+        <tr>
+            <td>City</td>
+            <td id="city">333</td>
+        </tr>
+
+
+        <tr>
+            <td>Latitude/Longitude</td>
+            <td id="ll">444</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    var map;
+    function initMap() {
+
+        fetch('location')
+            .then((resp) => resp.json()) // Transform the data into json
+            .then(function(data) {
+
+                var lat = 0, lng = 0;
+                if (data && data.ll) {
+                    lat = data.ll[0];
+                    lng = data.ll[1];
+                } else {
+                    console.error('location not found');
+                }
+
+                document.getElementById('ip').textContent = data.ip;
+                document.getElementById('country').textContent = data.country;
+                document.getElementById('city').textContent = data.city;
+                document.getElementById('ll').textContent = lat + "," + lng;
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: lat, lng: lng},
+                    zoom: 8
+                });
+            });
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIZRuN1A4Pnd_aofrIZOPw7qDrvVEQwkg&callback=initMap"
+        async defer></script>
+
+</body>
+</html>
