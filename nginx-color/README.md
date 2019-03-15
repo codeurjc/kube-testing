@@ -24,6 +24,10 @@ Obtenemos la URL de acceso
 $ export INGRESS_HOST=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 $ export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].port}')
 
+# Si estamos en AWS usamos el hostnam
+export INGRESS_HOST=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+
+
 $ echo http://$INGRESS_HOST:$INGRESS_PORT/app # este es por si quieres copiarlo a un browser
 
 $ curl -I http://$INGRESS_HOST:$INGRESS_PORT/app # este es la prueba que debe devolver 200
